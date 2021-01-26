@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body  class="text-center" >
+    <!-- viewaでユーザー作成の際、エラーがでたら表示 -->
+    {{ context }}
+    <!-- sinupするためのユーザーネームとパスワードをPOSTで受け取る。formタグにmethodを指定し、csrf_token記載 -->
+    <form class="form-signin" method='POST'>{% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">ログイン</h1>
+        <label for="inputUsername" class="sr-only">ユーザーネーム</label>
+        <!-- inputタグにnameを指定する -->
+        <input type="text" id="inputEmail" class="form-control" placeholder='ユーザーネーム' name='username' required autofocus>
+        <label for="inputPassword" class="sr-only">パスワード</label>
+        <!-- inputタグにnameを指定する -->
+        <input type="password" id="inputPassword" class="form-control" placeholder="パスワード"  name='password' required>
+        <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button> -->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+    </form>
+</body>
+
+{% endblock content %}
