@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import BoardModel
 
-# Register your models here.
+# adminでモデルを表示させる
+admin.site.register(BoardModel)

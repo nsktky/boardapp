@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
+from .models import BoardModel
 
 # サインイン関数。新規ユーザーの作成と重複登録を防ぐ処理をする
 def signupfunc(request):
@@ -37,3 +38,8 @@ def loginfunc(request):
     return render(request, 'login.html', {'context':'get method'})            
 
 
+def listfunc(request):
+    # BoardModelのデータを全てとってきてobject_listに入れる
+    object_list = BoardModel.objects.all()
+    # renderで渡すデータを辞書型で記載。キーとバリューは基本同じ名前にする。html上でキーを記載するとバリューを呼び出せる
+    return render(request, 'list.html', {'object_list': object_list})
