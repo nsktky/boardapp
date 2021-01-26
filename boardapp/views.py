@@ -3,17 +3,12 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 def signupfunc(request):
-    # Userモデルのオブジェクト全てをobject_listに格納
-    object_list = User.objects.all()
-    print(object_list)
-    # Userモデルのデータの一部を取り出すことも可能。.getに引数を渡し、該当のデータをインスタンス化
-    object = User.objects.get(username='nsktky')
-    # object.要素でモデルに定義されたデータを扱える
-    print(object.email)
-    
+    # レスポンスがpostだった場合（signup.htmlのform入力があった場合）の動作
     if request.method == 'POST':
-        print('This is post method')
-    else:
-        print('This is not post method')
+        username = request.POST['username']
+        password = request.POST['password']
+        # create_userでユーザーを作成。引数にユーザー名、メールアドレス、パスワードを渡す
+        user = User.objects.create_user(username, '', password)
+
     # renderメソッドはhttpレスポンスを作成する
     return render(request, 'signup.html', {'some': 100})
