@@ -3,6 +3,8 @@
 {% block content %}
 
 <body  class="text-center" >
+    <!-- viewaでユーザー作成の際、エラーがでたら表示 -->
+    {{ error }}
     <!-- sinupするためのユーザーネームとパスワードをPOSTで受け取る。formタグにmethodを指定し、csrf_token記載 -->
     <form class="form-signin" method='POST'>{% csrf_token %}
         <h1 class="h3 mb-3 font-weight-normal">サインインする</h1>
