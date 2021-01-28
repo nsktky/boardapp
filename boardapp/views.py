@@ -58,3 +58,11 @@ def detailfunc(request, pk):
     # BoardModelにデータがあればオブジェクトに入れる。なければエラーを返す。持ってくるデータはpkで判断
     object = get_object_or_404(BoardModel, pk=pk)
     return render(request, 'detail.html', {'object':object})
+
+
+def goodfunc(request, pk):
+    # get_object_or_404じゃなく、以下でもデータをとって来れる
+    object = BoardModel.objects.get(pk=pk)
+    object.good += 1
+    object.save()
+    return redirect('list')
