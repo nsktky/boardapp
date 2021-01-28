@@ -8,7 +8,8 @@
 
 
 {% block content %}
-
+<!-- user.is_authenticatedでログイン状況を確認。ログイン時はTrueを返す -->
+{% if user.is_authenticated %}
 <div class="container">
     {% for item in object_list %}
     <div class="alert alert-success" role="alert">
@@ -18,5 +19,9 @@
         <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Link</a>
     </div>
     {% endfor %}
+    <a href="{% url 'logout' %}" class="btn btn-primary" role="button" aria-pressed="true">log out</a>
 </div>
+{% else %}
+please login
+{% endif %}
 {% endblock content %}

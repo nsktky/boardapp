@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 # djangoが提供しているUserModelを使用
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import BoardModel
+from django.contrib.auth.decorators import login_required
 
 # サインイン関数。新規ユーザーの作成と重複登録を防ぐ処理をする
 def signupfunc(request):
@@ -32,14 +33,22 @@ def loginfunc(request):
 
         if user is not None:
             login(request, user)
-            return render(request, 'login.html', {'context':'logged in'})
+            # ログイン成功したらlistページへリダイレクト
+            return redirect('list')
         else:
-            return render(request, 'login.html', {'context':'not logged in'})
-    return render(request, 'login.html', {'context':'get method'})
+            return render(request, 'login.html', {})
+    return render(request, 'login.html', {})
 
 
+# ログインしてなければLOGIN_URLにリダイレクトするようデコレーターをつける
+@login_required
 def listfunc(request):
     # BoardModelのデータを全てとってきてobject_listに入れる
     object_list = BoardModel.objects.all()
     # renderで渡すデータを辞書型で記載。キーとバリューは基本同じ名前にする。html上でキーを記載するとバリューを呼び出せる
     return render(request, 'list.html', {'object_list': object_list})
+
+
+def logoutfunc(request):
+    logout(request)
+    return redirect('login')
