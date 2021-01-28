@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # djangoが提供しているUserModelを使用
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -48,7 +48,13 @@ def listfunc(request):
     # renderで渡すデータを辞書型で記載。キーとバリューは基本同じ名前にする。html上でキーを記載するとバリューを呼び出せる
     return render(request, 'list.html', {'object_list': object_list})
 
-
+# ログアウト機能。ログアウト後はloginページへ遷移
 def logoutfunc(request):
     logout(request)
     return redirect('login')
+
+# 投稿の詳細表示。urlに入っているpkを引数に渡す
+def detailfunc(request, pk):
+    # BoardModelにデータがあればオブジェクトに入れる。なければエラーを返す。持ってくるデータはpkで判断
+    object = get_object_or_404(BoardModel, pk=pk)
+    return render(request, 'detail.html', {'object':object})
