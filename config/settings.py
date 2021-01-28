@@ -120,9 +120,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/sta/'
+
+# デプロイ時に全ての静的ファイルをstaticfilesにコピーするために指定
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+# アプリ毎に静的ファイルを扱うため、リスト型にしてそれぞれのパスを記載
+STATICFILES_DIRS = [str(BASE_DIR / 'static')]
 
 # ユーザーがアップロードする画像等を保存する場所を記載 開発環境のみ
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
 
-MEDIA_URL = 'medi/'
+MEDIA_ROOT = BASE_DIR / 'media'

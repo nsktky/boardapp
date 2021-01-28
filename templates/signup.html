@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+<!-- staticの中のstyle.cssを読み込む -->
+{% block customcss %}
+<link href="{% static 'style.css' %}" rel="stylesheet">
+{% endblock customcss %}
 
 {% block content %}
 
