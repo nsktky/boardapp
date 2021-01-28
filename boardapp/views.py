@@ -29,13 +29,13 @@ def loginfunc(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
-            return render(request, 'login.html', {'context':'logged in'})            
+            return render(request, 'login.html', {'context':'logged in'})
         else:
             return render(request, 'login.html', {'context':'not logged in'})
-    return render(request, 'login.html', {'context':'get method'})            
+    return render(request, 'login.html', {'context':'get method'})
 
 
 def listfunc(request):

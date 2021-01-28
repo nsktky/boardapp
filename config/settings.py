@@ -121,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# ユーザーがアップロードする画像等を保存する場所を記載 開発環境のみ
+MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_URL = 'medi/'
