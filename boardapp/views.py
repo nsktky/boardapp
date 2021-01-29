@@ -59,10 +59,25 @@ def detailfunc(request, pk):
     object = get_object_or_404(BoardModel, pk=pk)
     return render(request, 'detail.html', {'object':object})
 
-
+# いいね機能の関数。レスポンスを受けたらgoodの数を増やして返す。htmlでgood数を表示させる
 def goodfunc(request, pk):
     # get_object_or_404じゃなく、以下でもデータをとって来れる
     object = BoardModel.objects.get(pk=pk)
     object.good += 1
     object.save()
     return redirect('list')
+
+# 既読機能の関数。レスポンスを受け、usernameがreadtext内になければ既読数を1増やして返す
+def readfunc(request, pk):
+    object = BoardModel.objects.get(pk=pk)
+    username = request.user.get_username()
+    # すでに既読してるか判定
+    if username in object.readtext:
+        return redirect('list')
+    # 既読してない場合はreadを1増やす
+    else:
+        object.read += 1
+        # これだと同姓同名に対応できない。本番環境ではpkで対応。フィールドもリストのほうがいいのでは？
+        object.readtext = object.readtext + ' ' + username
+        object.save()
+        return redirect('list')
